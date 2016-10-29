@@ -4,30 +4,47 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <style>
-  input{
-    display: block;
-    font-size: 24px;
-    height:36px;
-    width:200px;
-  }
-  textarea{
-    width:200px;
-    height:200px;
-  }
+    body{
+      /*background-color: #DECADE*/
+      background-color: #F2F6D0
+    }
+    #wrapper{
+      width:960px;
+      margin: 0 auto;
+      padding-top: 5%;
+    }
+    #articles{
+      width:60%;
+      height:700px;
+      display:inline-block;
+      overflow: auto;
+    }
+    #notes{
+      width:30%;
+      float:right;
+    }
+    textarea, input{
+      display:block;
+      width:100%;
+      background-color: #FCF5C7;
+    }
+    input{
+      height:36px;
+      font-size: 24px;
+    }
+    textarea{
+      height:200px;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
-  <form action="/submit" method="post">
-  <h1>Hi User!</h1>
-  <h2>Enter a Note!</h2>
-    <input type="text" name="title" placeholder="Title">
-    <textarea type="text" name="body">Write Note Here</textarea>
-
-    <input type="submit">
-    <a href="/notes">See your notes!</a>
-    <a href="/user">See your profile!</a>
-    <a href="/populateduser">See your profile, populated with notes!</a>
-  </form>
+  <div id="wrapper">
+    <h1>Note Scraper</h1>
+    <h2><i>If you can do this...the homework should be no problem.</i></h2>
+    <div id="articles"></div>
+    <div id="notes"></div>
+  </div>
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
   <script src="app.js"></script>
 </body>
