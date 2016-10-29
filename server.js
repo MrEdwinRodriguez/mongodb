@@ -59,6 +59,7 @@ app.get('/scrape', function(req, res) {
     // now, we grab every h2 within an article tag, and do the following:
     $('article h2 a').each(function(i, element) {
 
+
       console.log('hello')
       console.log(element)
         // save an empty result object
@@ -66,8 +67,8 @@ app.get('/scrape', function(req, res) {
 
         // add the text and href of every link, 
         // and save them as properties of the result obj
-        result.title = $(this).children('a').text();
-        result.link = $(this).children('a').attr('href');
+        result.title = $(this).children('a').text('href');
+        result.link = $(this).children('.summary').text();
 
         // using our Article model, create a new entry.
         // Notice the (result):
