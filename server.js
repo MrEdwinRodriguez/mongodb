@@ -8,6 +8,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var expressHandlebars = require('express-handlebars');
 // Notice: Our scraping tools are prepared, too
 var request = require('request'); 
 var cheerio = require('cheerio');
@@ -18,12 +19,11 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// make public a static dir
-app.use(express.static('public'));
+
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://localhost/week18day3mongoose');
+mongoose.connect('mongodb://localhost/newyorktimes');
 var db = mongoose.connection;
 
 // show any mongoose errors
@@ -47,8 +47,14 @@ var Article = require('./models/Article.js');
 
 // Simple index route
 app.get('/', function(req, res) {
-  res.send(index.html);
+  res.render('home');
 });
+
+//looks for the views folder and connect handlbars
+app.engine('handlebars', expressHandlebars({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 // A GET request to scrape the echojs website.
 app.get('/scrape', function(req, res) {
@@ -96,6 +102,7 @@ app.get('/scrape', function(req, res) {
 
 // this will get the articles we scraped from the mongoDB
 app.get('/articles', function(req, res){
+  // app.get('/fetch', function(req, res){
   // grab every doc in the Articles array
   Article.find({}, function(err, doc){
     // log any errors
