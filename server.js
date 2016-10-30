@@ -5,6 +5,7 @@
 // dependencies
 var express = require('express');
 var app = express();
+var path = require('path');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
@@ -23,7 +24,7 @@ app.use(bodyParser.urlencoded({
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://localhost/newyorktimes');
+mongoose.connect('mongodb://localhost/week18populater');
 var db = mongoose.connection;
 
 // show any mongoose errors
@@ -49,6 +50,12 @@ var Article = require('./models/Article.js');
 app.get('/', function(req, res) {
   res.render('home');
 });
+
+app.get('/fetch', function(req, res) {
+  res.render('home');
+});
+
+app.use(express.static(__dirname + '/public'));
 
 //looks for the views folder and connect handlbars
 app.engine('handlebars', expressHandlebars({
@@ -102,7 +109,6 @@ app.get('/scrape', function(req, res) {
 
 // this will get the articles we scraped from the mongoDB
 app.get('/articles', function(req, res){
-  // app.get('/fetch', function(req, res){
   // grab every doc in the Articles array
   Article.find({}, function(err, doc){
     // log any errors
@@ -116,6 +122,14 @@ app.get('/articles', function(req, res){
   });
 });
 
+
+router.post('/fetch', function(req, res) {
+    // use the fetch function from the headlines controller,
+    // this grabs all of the headlines from nyTimes and saves it to the db
+    headlinesController.fetch();
+    // send a success message to the browser
+    res.send('success');
+});
 // grab an article by it's ObjectId
 app.get('/articles/:id', function(req, res){
   // using the id passed in the id parameter, 
