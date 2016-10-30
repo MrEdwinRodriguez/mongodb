@@ -24,7 +24,9 @@ app.use(bodyParser.urlencoded({
 
 
 // Database configuration with mongoose
-mongoose.connect('mongodb://localhost/week18populater');
+// mongoose.connect('mongodb://localhost/week18populater');
+mongoose.connect('mongodb://heroku_jvm8vx72:h9lbds5or9t6b0gf19d4u6095r@ds139267.mlab.com:39267/heroku_jvm8vx72');
+
 var db = mongoose.connection;
 
 // show any mongoose errors
@@ -51,9 +53,7 @@ app.get('/', function(req, res) {
   res.render('home');
 });
 
-app.get('/fetch', function(req, res) {
-  res.render('home');
-});
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -123,13 +123,14 @@ app.get('/articles', function(req, res){
 });
 
 
-router.post('/fetch', function(req, res) {
+app.post('/fetch', function(req, res) {
     // use the fetch function from the headlines controller,
     // this grabs all of the headlines from nyTimes and saves it to the db
-    headlinesController.fetch();
+    Article.fetch();
     // send a success message to the browser
-    res.send('success');
+    res.send('/fetch');
 });
+
 // grab an article by it's ObjectId
 app.get('/articles/:id', function(req, res){
   // using the id passed in the id parameter, 
