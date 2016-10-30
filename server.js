@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({
 
 
 // Database configuration with mongoose
-// mongoose.connect('mongodb://localhost/week18populater');
-mongoose.connect('mongodb://heroku_jvm8vx72:h9lbds5or9t6b0gf19d4u6095r@ds139267.mlab.com:39267/heroku_jvm8vx72');
+mongoose.connect('mongodb://localhost/week18populater');
+// mongoose.connect('mongodb://heroku_jvm8vx72:h9lbds5or9t6b0gf19d4u6095r@ds139267.mlab.com:39267/heroku_jvm8vx72');
 
 var db = mongoose.connection;
 
